@@ -332,34 +332,14 @@ const BOT_USERNAME = 'YourBotUsername'; // <-- GANTI
 // cover: path ke file lokal di repo, contoh 'img/g1.jpg'
 // Kalau belum punya gambar, isi cover: null → tampil emoji fallback
 const grupData = [
-  { id:'g1', name:'Ariel Pack Vol.1',  price:35000, items:12, tags:['hot','foto'],           cover:'img/g1.jpg',  emoji:'🌸', desc:'Koleksi lengkap 12 foto eksklusif, resolusi tinggi.',           startCode:'grup_g1' },
-  { id:'g2', name:'Video Bundle S01',  price:75000, items:5,  tags:['hot','video','new'],     cover:'img/g2.jpg',  emoji:'🎬', desc:'5 video full HD, total durasi 45 menit.',                        startCode:'grup_g2' },
-  { id:'g3', name:'Mega Pack 50+',     price:120000,items:52, tags:['foto','video'],           cover:'img/g3.jpg',  emoji:'💎', desc:'30 foto + 22 video dalam satu bundle eksklusif.',               startCode:'grup_g3' },
-  { id:'g4', name:'Luna Collection',   price:45000, items:18, tags:['new','foto'],             cover:'img/g4.jpg',  emoji:'🌙', desc:'Koleksi terbaru tema elegan. 18 foto artsy high-res.',           startCode:'grup_g4' },
-  { id:'g5', name:'Wild Series',       price:60000, items:8,  tags:['video','hot'],            cover:'img/g5.jpg',  emoji:'🐆', desc:'8 video pendek eksklusif, tiap video 3–5 menit.',               startCode:'grup_g5' },
-  { id:'g6', name:'Starter Pack',      price:20000, items:6,  tags:['foto'],                  cover:'img/g6.jpg',  emoji:'🎀', desc:'Cocok buat yang baru. 6 foto pilihan harga terjangkau.',         startCode:'grup_g6' },
-  { id:'g7', name:'VIP Exclusive',     price:200000,items:100,tags:['hot','video','foto','new'],cover:'img/g7.jpg', emoji:'👑', desc:'Paket VIP terlengkap — 100+ file tanpa batas.',                  startCode:'grup_g7' },
-  { id:'g8', name:'Sakura Series',     price:50000, items:15, tags:['foto','new'],             cover:'img/g8.jpg',  emoji:'🌸', desc:'Seri tematik bunga sakura. 15 foto estetik premium.',            startCode:'grup_g8' },
+  { id:'g1', name:'KOLPRI ALPHABET',  price:80000, items:1, tags:['hot','foto'],           cover:'img/g1.jpg',  emoji:'🌸', desc:'Kumpulan kolpri yang di susun rapi sesuai Alphabet. Media udah ribuan',           startCode:'grup_g1' },
+  { id:'g2', name:'ALTER TALENT',     price:75000, items:1, tags:['foto','new'],             cover:'img/g8.jpg',  emoji:'🌸', desc:'Kumpulan talent tele, seleb, apk live, OF, trakteer yang di susun rapi per topik. Media udah ribuan update terus.',            startCode:'grup_g2' },
 ];
 
 // ── SATUAN DATA ────────────────────────────────────────────────────────────
 // cover: path lokal, contoh 'img/s1.jpg'. Null = emoji fallback
 const satuanData = [
-  { id:'s1',  name:'Scene #01 – Kamar Hotel', price:8000,  type:'video', tags:['video','hot'],       cover:'img/s1.jpg',  emoji:'🎬', dur:'4:32',  startCode:'satuan_s1',  desc:'Video eksklusif di kamar hotel mewah. Kualitas HD jernih.' },
-  { id:'s2',  name:'Foto Set Sunrise',         price:5000,  type:'foto',  tags:['foto','new'],        cover:'img/s2.jpg',  emoji:'🌅', dur:'1 foto', startCode:'satuan_s2',  desc:'Single foto resolusi 4K, pencahayaan alami pagi hari.' },
-  { id:'s3',  name:'Scene #02 – Pantai',       price:10000, type:'video', tags:['video'],             cover:'img/s3.jpg',  emoji:'🏖️', dur:'6:10',  startCode:'satuan_s3',  desc:'Video outdoor di pantai private, suasana natural.' },
-  { id:'s4',  name:'Foto Mewah Vol.2',         price:5000,  type:'foto',  tags:['foto'],              cover:'img/s4.jpg',  emoji:'💄', dur:'1 foto', startCode:'satuan_s4',  desc:'Foto glamour dengan styling profesional.' },
-  { id:'s5',  name:'Scene #03 – Rooftop',      price:12000, type:'video', tags:['video','hot','new'], cover:'img/s5.jpg',  emoji:'🌃', dur:'8:44',  startCode:'satuan_s5',  desc:'Video dengan latar kota malam hari yang memukau.' },
-  { id:'s6',  name:'Behind The Scene',         price:6000,  type:'video', tags:['video','new'],       cover:'img/s6.jpg',  emoji:'🎥', dur:'3:21',  startCode:'satuan_s6',  desc:'Konten behind the scene eksklusif.' },
-  { id:'s7',  name:'Foto Koleksi Biru',        price:4000,  type:'foto',  tags:['foto'],              cover:'img/s7.jpg',  emoji:'💙', dur:'1 foto', startCode:'satuan_s7',  desc:'Foto bertema biru elegan dengan pencahayaan studio.' },
-  { id:'s8',  name:'Scene #04 – Villa',        price:15000, type:'video', tags:['video','hot'],       cover:'img/s8.jpg',  emoji:'🏡', dur:'10:02', startCode:'satuan_s8',  desc:'Video terpanjang di seri ini. Direkam di villa pribadi.' },
-  { id:'s9',  name:'Foto Neon Vibes',          price:5000,  type:'foto',  tags:['foto','new'],        cover:'img/s9.jpg',  emoji:'💜', dur:'1 foto', startCode:'satuan_s9',  desc:'Foto bertema neon cyberpunk, colorful dan aesthetic.' },
-  { id:'s10', name:'Scene #05 – Kolam',        price:11000, type:'video', tags:['video'],             cover:'img/s10.jpg', emoji:'🏊', dur:'5:55',  startCode:'satuan_s10', desc:'Video outdoor di kolam renang private.' },
-  { id:'s11', name:'Foto Minimalis',           price:4000,  type:'foto',  tags:['foto'],              cover:'img/s11.jpg', emoji:'🤍', dur:'1 foto', startCode:'satuan_s11', desc:'Foto clean & minimalis, estetik dan elegan.' },
-  { id:'s12', name:'Scene #06 – Studio',       price:9000,  type:'video', tags:['video','new'],       cover:'img/s12.jpg', emoji:'🎙️', dur:'7:14',  startCode:'satuan_s12', desc:'Direkam di studio profesional dengan lighting sempurna.' },
-  { id:'s13', name:'Foto Wild Nature',         price:5000,  type:'foto',  tags:['foto'],              cover:'img/s13.jpg', emoji:'🌿', dur:'1 foto', startCode:'satuan_s13', desc:'Foto outdoor di alam terbuka, natural dan segar.' },
-  { id:'s14', name:'Scene #07 – Malam',        price:13000, type:'video', tags:['video','hot'],       cover:'img/s14.jpg', emoji:'🌙', dur:'9:30',  startCode:'satuan_s14', desc:'Video dengan suasana malam romantis dan intim.' },
-  { id:'s15', name:'Foto Gold Dress',          price:6000,  type:'foto',  tags:['foto','hot'],        cover:'img/s15.jpg', emoji:'✨', dur:'1 foto', startCode:'satuan_s15', desc:'Foto glamour dengan gaun emas, high fashion vibes.' },
+  { id:'s1',  name:'BIYA BERNADETTE', price:25000,  type:'video', tags:['video','hot'],       cover:'img/s1.jpg',  emoji:'🎬', dur:'4:32',  startCode:'satuan_s1',  desc:'Video eksklusif di kamar hotel mewah. Kualitas HD jernih.' },
   { id:'s16', name:'Scene #08 – Exclusive',    price:20000, type:'video', tags:['video','hot','new'], cover:'img/s16.jpg', emoji:'👑', dur:'15:00', startCode:'satuan_s16', desc:'Konten eksklusif terbatas. Video terbaik yang pernah ada.' },
 ];
 
