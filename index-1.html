@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Katalog Premium</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,500&display=swap');
+
+  :root {
+    --bg:        #0c0b10;
+    --surface:   #13111a;
+    --card:      #1a1724;
+    --border:    #2d2840;
+    --purple:    #9b6dff;
+    --purple-dim:#6b3fc7;
+    --purple-glow: rgba(155,109,255,0.18);
+    --gold:      #c9a96e;
+    --tag-bg:    rgba(155,109,255,0.10);
+    --text:      #f0edf8;
+    --muted:     #7a7090;
+    --r:         14px;
+    --r-sm:      8px;
+    --font: 'Inter', system-ui, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 14px;
+    line-height: 1.5;
+    min-height: 100dvh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* HEADER */
+  header {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(12,11,16,0.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 16px;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .brand-icon {
+    width: 34px; height: 34px; border-radius: 10px;
+    background: linear-gradient(135deg, var(--purple), #4a1fa8);
+    display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0;
+  }
+  .brand-name { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 600; letter-spacing: 0.01em; }
+  .brand-name span { color: var(--purple); }
+  .header-btn {
+    display: flex; align-items: center; gap: 6px;
+    background: var(--purple); color: #fff; font-size: 12px; font-weight: 600;
+    padding: 8px 14px; border-radius: 20px; text-decoration: none; letter-spacing: 0.02em;
+    transition: opacity 0.15s; flex-shrink: 0;
+  }
+  .header-btn:active { opacity: 0.75; }
+
+  /* HERO */
+  .hero {
+    padding: 28px 16px 20px; text-align: center; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(155,109,255,0.13) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--tag-bg); border: 1px solid rgba(155,109,255,0.28);
+    color: var(--purple); font-size: 11px; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 5px 12px; border-radius: 20px; margin-bottom: 14px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(24px, 7vw, 32px); font-weight: 600; line-height: 1.2; margin-bottom: 10px;
+  }
+  .hero h1 em { font-style: italic; color: var(--purple); }
+  .hero-sub { color: var(--muted); font-size: 13px; max-width: 300px; margin: 0 auto 20px; }
+  .stats-row { display: flex; justify-content: center; gap: 28px; }
+  .stat { text-align: center; }
+  .stat-num { font-size: 20px; font-weight: 700; color: var(--gold); line-height: 1; }
+  .stat-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 2px; }
+
+  /* TABS */
+  .tab-bar {
+    display: flex; background: var(--surface); border-radius: var(--r);
+    padding: 4px; margin: 20px 16px 0; border: 1px solid var(--border);
+  }
+  .tab-btn {
+    flex: 1; border: none; background: transparent; color: var(--muted);
+    font-size: 13px; font-weight: 600; font-family: var(--font);
+    padding: 9px 8px; border-radius: 10px; cursor: pointer; transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+  }
+  .tab-btn.active {
+    background: var(--purple); color: #fff; box-shadow: 0 2px 14px rgba(155,109,255,0.4);
+  }
+
+  /* FILTER PILLS */
+  .filter-scroll {
+    overflow-x: auto; scrollbar-width: none;
+    padding: 14px 16px 4px; display: flex; gap: 8px;
+  }
+  .filter-scroll::-webkit-scrollbar { display: none; }
+  .pill {
+    flex-shrink: 0; background: var(--surface); border: 1px solid var(--border);
+    color: var(--muted); font-size: 12px; font-weight: 500;
+    padding: 6px 14px; border-radius: 20px; cursor: pointer; transition: all 0.15s;
+    font-family: var(--font); white-space: nowrap;
+  }
+  .pill.active { background: var(--tag-bg); border-color: var(--purple); color: var(--purple); }
+
+  /* SECTION */
+  .section { padding: 16px 16px 0; }
+  .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .section-title { font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+  .section-count {
+    font-size: 11px; background: var(--tag-bg); color: var(--purple);
+    padding: 2px 8px; border-radius: 10px; font-weight: 600;
+  }
+
+  /* GRUP CARDS */
+  .grup-scroll { overflow-x: auto; scrollbar-width: none; display: flex; gap: 12px; padding-bottom: 4px; }
+  .grup-scroll::-webkit-scrollbar { display: none; }
+  .grup-card {
+    flex-shrink: 0; width: 178px; background: var(--card);
+    border: 1px solid var(--border); border-radius: var(--r); overflow: hidden;
+    cursor: pointer; transition: transform 0.2s; text-decoration: none; color: inherit;
+  }
+  .grup-card:active { transform: scale(0.97); }
+  .grup-thumb {
+    width: 100%; aspect-ratio: 4/3; background: var(--surface);
+    position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .grup-thumb img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.3s;
+  }
+  .grup-card:active .grup-thumb img { transform: scale(1.04); }
+  .grup-thumb .no-img { font-size: 40px; }
+  .grup-badge {
+    position: absolute; top: 8px; left: 8px; background: var(--purple); color: #fff;
+    font-size: 9px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 3px 7px; border-radius: 6px;
+  }
+  .grup-body { padding: 10px; }
+  .grup-name { font-size: 13px; font-weight: 600; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .grup-meta { display: flex; align-items: center; justify-content: space-between; }
+  .grup-items { font-size: 11px; color: var(--muted); }
+  .grup-price { font-size: 13px; font-weight: 700; color: var(--gold); }
+
+  /* SATUAN GRID */
+  .items-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding-bottom: 16px; }
+  .item-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--r);
+    overflow: hidden; cursor: pointer; transition: transform 0.2s;
+    text-decoration: none; color: inherit; display: flex; flex-direction: column;
+  }
+  .item-card:active { transform: scale(0.96); }
+  .item-thumb {
+    width: 100%; aspect-ratio: 3/4; background: var(--surface);
+    display: flex; align-items: center; justify-content: center; font-size: 32px;
+    position: relative; overflow: hidden;
+  }
+  .item-thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .item-type-badge {
+    position: absolute; bottom: 6px; right: 6px;
+    background: rgba(0,0,0,0.65); backdrop-filter: blur(4px);
+    border-radius: 6px; padding: 3px 7px; font-size: 10px; font-weight: 600;
+  }
+  .item-body { padding: 10px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+  .item-name {
+    font-size: 12px; font-weight: 600; line-height: 1.3;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .item-footer { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
+  .item-price { font-size: 13px; font-weight: 700; color: var(--gold); }
+  .item-buy-btn {
+    background: var(--purple); color: #fff; font-size: 10px; font-weight: 700;
+    padding: 5px 10px; border-radius: 20px; letter-spacing: 0.03em;
+  }
+
+  /* BOTTOM SHEET */
+  .sheet-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.75); z-index: 100; backdrop-filter: blur(5px);
+  }
+  .sheet-overlay.open { display: flex; align-items: flex-end; }
+  .sheet {
+    background: var(--surface); border-radius: 20px 20px 0 0;
+    border-top: 1px solid var(--border); width: 100%; max-height: 90dvh;
+    overflow-y: auto; padding-bottom: env(safe-area-inset-bottom, 16px);
+    transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.32,0.72,0,1);
+  }
+  .sheet-overlay.open .sheet { transform: translateY(0); }
+  .sheet-handle { width: 36px; height: 4px; background: var(--border); border-radius: 2px; margin: 12px auto 0; }
+  .sheet-img {
+    width: 100%; aspect-ratio: 16/9; background: var(--card);
+    display: flex; align-items: center; justify-content: center; font-size: 48px;
+    margin-top: 12px; overflow: hidden;
+  }
+  .sheet-img img { width: 100%; height: 100%; object-fit: cover; }
+  .sheet-content { padding: 16px 16px 0; }
+  .sheet-tag-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+  .sheet-tag {
+    background: var(--tag-bg); border: 1px solid rgba(155,109,255,0.22); color: var(--purple);
+    font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 10px;
+    text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  .sheet-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 600; line-height: 1.25; margin-bottom: 8px; }
+  .sheet-desc { color: var(--muted); font-size: 13px; line-height: 1.6; margin-bottom: 14px; }
+  .sheet-info-row { display: flex; gap: 10px; margin-bottom: 16px; }
+  .sheet-info-chip {
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--r-sm);
+    padding: 8px 12px; display: flex; flex-direction: column; gap: 2px; flex: 1;
+  }
+  .chip-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+  .chip-val { font-size: 14px; font-weight: 700; }
+  .sheet-cta {
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--card); border-top: 1px solid var(--border);
+    padding: 14px 16px; position: sticky; bottom: 0; gap: 12px;
+  }
+  .cta-price { display: flex; flex-direction: column; }
+  .cta-price-label { font-size: 10px; color: var(--muted); }
+  .cta-price-val { font-size: 20px; font-weight: 700; color: var(--gold); line-height: 1.1; }
+  .cta-buy {
+    flex: 1; background: linear-gradient(135deg, var(--purple), var(--purple-dim));
+    color: #fff; font-size: 14px; font-weight: 700; padding: 14px; border-radius: var(--r);
+    text-align: center; text-decoration: none; display: block; letter-spacing: 0.02em;
+    box-shadow: 0 4px 20px rgba(155,109,255,0.4); transition: opacity 0.15s;
+  }
+  .cta-buy:active { opacity: 0.8; }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+  .spacer { height: 24px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="brand-icon">💎</div>
+    <div class="brand-name">Slava<span>Premium</span></div>
+  </div>
+  <a class="header-btn" href="https://t.me/YourBotUsername" target="_blank">✉️ Order</a>
+</header>
+
+<div class="hero">
+  <div class="hero-eyebrow">🔒 Konten Eksklusif</div>
+  <h1>Koleksi <em>Premium</em><br>Pilihan Terbaik</h1>
+  <p class="hero-sub">Konten berkualitas tinggi, tersedia dalam paket grup & satuan.</p>
+  <div class="stats-row">
+    <div class="stat"><div class="stat-num">24</div><div class="stat-label">Konten</div></div>
+    <div class="stat"><div class="stat-num">8</div><div class="stat-label">Paket Grup</div></div>
+    <div class="stat"><div class="stat-num">⭐</div><div class="stat-label">Verified</div></div>
+  </div>
+</div>
+
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('grup',this)">📦 Paket Grup</button>
+  <button class="tab-btn" onclick="switchTab('satuan',this)">🎞️ Satuan</button>
+</div>
+
+<div class="tab-panel active" id="panel-grup">
+  <div class="filter-scroll">
+    <button class="pill active" onclick="filterGrup('all',this)">Semua</button>
+    <button class="pill" onclick="filterGrup('hot',this)">🔥 Hot</button>
+    <button class="pill" onclick="filterGrup('new',this)">✨ Baru</button>
+    <button class="pill" onclick="filterGrup('video',this)">🎬 Video</button>
+    <button class="pill" onclick="filterGrup('foto',this)">📸 Foto</button>
+  </div>
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Paket Grup <span class="section-count" id="grup-count">8</span></div>
+    </div>
+    <div class="grup-scroll" id="grup-list"></div>
+  </div>
+  <div class="spacer"></div>
+</div>
+
+<div class="tab-panel" id="panel-satuan">
+  <div class="filter-scroll">
+    <button class="pill active" onclick="filterSatuan('all',this)">Semua</button>
+    <button class="pill" onclick="filterSatuan('video',this)">🎬 Video</button>
+    <button class="pill" onclick="filterSatuan('foto',this)">📸 Foto</button>
+    <button class="pill" onclick="filterSatuan('new',this)">✨ Baru</button>
+  </div>
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Konten Satuan <span class="section-count" id="satuan-count">16</span></div>
+    </div>
+    <div class="items-grid" id="satuan-list"></div>
+  </div>
+  <div class="spacer"></div>
+</div>
+
+<div class="sheet-overlay" id="sheet-overlay" onclick="closeSheet(event)">
+  <div class="sheet" id="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-img" id="sheet-img"></div>
+    <div class="sheet-content">
+      <div class="sheet-tag-row" id="sheet-tags"></div>
+      <div class="sheet-title" id="sheet-title"></div>
+      <div class="sheet-desc" id="sheet-desc"></div>
+      <div class="sheet-info-row" id="sheet-info"></div>
+    </div>
+    <div class="sheet-cta">
+      <div class="cta-price">
+        <span class="cta-price-label">Harga</span>
+        <span class="cta-price-val" id="sheet-price-val">Rp 0</span>
+      </div>
+      <a class="cta-buy" id="sheet-buy-btn" href="#" target="_blank">🛒 Beli Sekarang</a>
+    </div>
+  </div>
+</div>
+
+<script>
+const BOT_USERNAME = 'YourBotUsername'; // <-- GANTI
+
+// ── GRUP DATA ──────────────────────────────────────────────────────────────
+// cover: path ke file lokal di repo, contoh 'img/g1.jpg'
+// Kalau belum punya gambar, isi cover: null → tampil emoji fallback
+const grupData = [
+  { id:'g1', name:'Ariel Pack Vol.1',  price:35000, items:12, tags:['hot','foto'],           cover:'img/g1.jpg',  emoji:'🌸', desc:'Koleksi lengkap 12 foto eksklusif, resolusi tinggi.',           startCode:'grup_g1' },
+  { id:'g2', name:'Video Bundle S01',  price:75000, items:5,  tags:['hot','video','new'],     cover:'img/g2.jpg',  emoji:'🎬', desc:'5 video full HD, total durasi 45 menit.',                        startCode:'grup_g2' },
+  { id:'g3', name:'Mega Pack 50+',     price:120000,items:52, tags:['foto','video'],           cover:'img/g3.jpg',  emoji:'💎', desc:'30 foto + 22 video dalam satu bundle eksklusif.',               startCode:'grup_g3' },
+  { id:'g4', name:'Luna Collection',   price:45000, items:18, tags:['new','foto'],             cover:'img/g4.jpg',  emoji:'🌙', desc:'Koleksi terbaru tema elegan. 18 foto artsy high-res.',           startCode:'grup_g4' },
+  { id:'g5', name:'Wild Series',       price:60000, items:8,  tags:['video','hot'],            cover:'img/g5.jpg',  emoji:'🐆', desc:'8 video pendek eksklusif, tiap video 3–5 menit.',               startCode:'grup_g5' },
+  { id:'g6', name:'Starter Pack',      price:20000, items:6,  tags:['foto'],                  cover:'img/g6.jpg',  emoji:'🎀', desc:'Cocok buat yang baru. 6 foto pilihan harga terjangkau.',         startCode:'grup_g6' },
+  { id:'g7', name:'VIP Exclusive',     price:200000,items:100,tags:['hot','video','foto','new'],cover:'img/g7.jpg', emoji:'👑', desc:'Paket VIP terlengkap — 100+ file tanpa batas.',                  startCode:'grup_g7' },
+  { id:'g8', name:'Sakura Series',     price:50000, items:15, tags:['foto','new'],             cover:'img/g8.jpg',  emoji:'🌸', desc:'Seri tematik bunga sakura. 15 foto estetik premium.',            startCode:'grup_g8' },
+];
+
+// ── SATUAN DATA ────────────────────────────────────────────────────────────
+// cover: path lokal, contoh 'img/s1.jpg'. Null = emoji fallback
+const satuanData = [
+  { id:'s1',  name:'Scene #01 – Kamar Hotel', price:8000,  type:'video', tags:['video','hot'],       cover:'img/s1.jpg',  emoji:'🎬', dur:'4:32',  startCode:'satuan_s1',  desc:'Video eksklusif di kamar hotel mewah. Kualitas HD jernih.' },
+  { id:'s2',  name:'Foto Set Sunrise',         price:5000,  type:'foto',  tags:['foto','new'],        cover:'img/s2.jpg',  emoji:'🌅', dur:'1 foto', startCode:'satuan_s2',  desc:'Single foto resolusi 4K, pencahayaan alami pagi hari.' },
+  { id:'s3',  name:'Scene #02 – Pantai',       price:10000, type:'video', tags:['video'],             cover:'img/s3.jpg',  emoji:'🏖️', dur:'6:10',  startCode:'satuan_s3',  desc:'Video outdoor di pantai private, suasana natural.' },
+  { id:'s4',  name:'Foto Mewah Vol.2',         price:5000,  type:'foto',  tags:['foto'],              cover:'img/s4.jpg',  emoji:'💄', dur:'1 foto', startCode:'satuan_s4',  desc:'Foto glamour dengan styling profesional.' },
+  { id:'s5',  name:'Scene #03 – Rooftop',      price:12000, type:'video', tags:['video','hot','new'], cover:'img/s5.jpg',  emoji:'🌃', dur:'8:44',  startCode:'satuan_s5',  desc:'Video dengan latar kota malam hari yang memukau.' },
+  { id:'s6',  name:'Behind The Scene',         price:6000,  type:'video', tags:['video','new'],       cover:'img/s6.jpg',  emoji:'🎥', dur:'3:21',  startCode:'satuan_s6',  desc:'Konten behind the scene eksklusif.' },
+  { id:'s7',  name:'Foto Koleksi Biru',        price:4000,  type:'foto',  tags:['foto'],              cover:'img/s7.jpg',  emoji:'💙', dur:'1 foto', startCode:'satuan_s7',  desc:'Foto bertema biru elegan dengan pencahayaan studio.' },
+  { id:'s8',  name:'Scene #04 – Villa',        price:15000, type:'video', tags:['video','hot'],       cover:'img/s8.jpg',  emoji:'🏡', dur:'10:02', startCode:'satuan_s8',  desc:'Video terpanjang di seri ini. Direkam di villa pribadi.' },
+  { id:'s9',  name:'Foto Neon Vibes',          price:5000,  type:'foto',  tags:['foto','new'],        cover:'img/s9.jpg',  emoji:'💜', dur:'1 foto', startCode:'satuan_s9',  desc:'Foto bertema neon cyberpunk, colorful dan aesthetic.' },
+  { id:'s10', name:'Scene #05 – Kolam',        price:11000, type:'video', tags:['video'],             cover:'img/s10.jpg', emoji:'🏊', dur:'5:55',  startCode:'satuan_s10', desc:'Video outdoor di kolam renang private.' },
+  { id:'s11', name:'Foto Minimalis',           price:4000,  type:'foto',  tags:['foto'],              cover:'img/s11.jpg', emoji:'🤍', dur:'1 foto', startCode:'satuan_s11', desc:'Foto clean & minimalis, estetik dan elegan.' },
+  { id:'s12', name:'Scene #06 – Studio',       price:9000,  type:'video', tags:['video','new'],       cover:'img/s12.jpg', emoji:'🎙️', dur:'7:14',  startCode:'satuan_s12', desc:'Direkam di studio profesional dengan lighting sempurna.' },
+  { id:'s13', name:'Foto Wild Nature',         price:5000,  type:'foto',  tags:['foto'],              cover:'img/s13.jpg', emoji:'🌿', dur:'1 foto', startCode:'satuan_s13', desc:'Foto outdoor di alam terbuka, natural dan segar.' },
+  { id:'s14', name:'Scene #07 – Malam',        price:13000, type:'video', tags:['video','hot'],       cover:'img/s14.jpg', emoji:'🌙', dur:'9:30',  startCode:'satuan_s14', desc:'Video dengan suasana malam romantis dan intim.' },
+  { id:'s15', name:'Foto Gold Dress',          price:6000,  type:'foto',  tags:['foto','hot'],        cover:'img/s15.jpg', emoji:'✨', dur:'1 foto', startCode:'satuan_s15', desc:'Foto glamour dengan gaun emas, high fashion vibes.' },
+  { id:'s16', name:'Scene #08 – Exclusive',    price:20000, type:'video', tags:['video','hot','new'], cover:'img/s16.jpg', emoji:'👑', dur:'15:00', startCode:'satuan_s16', desc:'Konten eksklusif terbatas. Video terbaik yang pernah ada.' },
+];
+
+// ── UTILS ──────────────────────────────────────────────────────────────────
+function fmt(n) { return 'Rp ' + n.toLocaleString('id-ID'); }
+function botLink(code) { return `https://t.me/${BOT_USERNAME}?start=${code}`; }
+
+function imgOrEmoji(cover, emoji, cls) {
+  if (cover) {
+    return `<img src="${cover}" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="${cls}" style="display:none;font-size:40px">${emoji}</span>`;
+  }
+  return `<span style="font-size:40px">${emoji}</span>`;
+}
+
+// ── RENDER ─────────────────────────────────────────────────────────────────
+function renderGrup(data) {
+  document.getElementById('grup-count').textContent = data.length;
+  document.getElementById('grup-list').innerHTML = data.map(g => `
+    <div class="grup-card" onclick="openSheet('grup','${g.id}')">
+      <div class="grup-thumb">
+        ${imgOrEmoji(g.cover, g.emoji, 'no-img')}
+        <div class="grup-badge">PAKET</div>
+      </div>
+      <div class="grup-body">
+        <div class="grup-name">${g.name}</div>
+        <div class="grup-meta">
+          <span class="grup-items">📁 ${g.items} file</span>
+          <span class="grup-price">${fmt(g.price)}</span>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function renderSatuan(data) {
+  document.getElementById('satuan-count').textContent = data.length;
+  document.getElementById('satuan-list').innerHTML = data.map(s => `
+    <div class="item-card" onclick="openSheet('satuan','${s.id}')">
+      <div class="item-thumb">
+        ${imgOrEmoji(s.cover, s.emoji, 'no-img')}
+        <div class="item-type-badge">${s.type==='video'?'🎬 Video':'📸 Foto'}</div>
+      </div>
+      <div class="item-body">
+        <div class="item-name">${s.name}</div>
+        <div class="item-footer">
+          <span class="item-price">${fmt(s.price)}</span>
+          <span class="item-buy-btn">Beli</span>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+// ── FILTERS ────────────────────────────────────────────────────────────────
+function filterGrup(tag, btn) {
+  document.querySelectorAll('#panel-grup .pill').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  renderGrup(tag==='all' ? grupData : grupData.filter(g=>g.tags.includes(tag)));
+}
+function filterSatuan(tag, btn) {
+  document.querySelectorAll('#panel-satuan .pill').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  renderSatuan(tag==='all' ? satuanData : satuanData.filter(s=>s.tags.includes(tag)));
+}
+
+// ── TABS ───────────────────────────────────────────────────────────────────
+function switchTab(tab, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('panel-'+tab).classList.add('active');
+}
+
+// ── BOTTOM SHEET ───────────────────────────────────────────────────────────
+function openSheet(type, id) {
+  const item = type==='grup' ? grupData.find(g=>g.id===id) : satuanData.find(s=>s.id===id);
+  if (!item) return;
+
+  const imgEl = document.getElementById('sheet-img');
+  if (item.cover) {
+    imgEl.innerHTML = `<img src="${item.cover}" alt="" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none'">`;
+  } else {
+    imgEl.innerHTML = `<span style="font-size:64px">${item.emoji}</span>`;
+  }
+
+  document.getElementById('sheet-tags').innerHTML = item.tags.map(t=>{
+    const l={hot:'🔥 Hot',new:'✨ Baru',video:'🎬 Video',foto:'📸 Foto'}[t]||t;
+    return `<span class="sheet-tag">${l}</span>`;
+  }).join('');
+
+  document.getElementById('sheet-title').textContent = item.name;
+  document.getElementById('sheet-desc').textContent = item.desc;
+  document.getElementById('sheet-info').innerHTML = type==='grup'
+    ? `<div class="sheet-info-chip"><span class="chip-label">Jumlah File</span><span class="chip-val">📁 ${item.items}</span></div>
+       <div class="sheet-info-chip"><span class="chip-label">Tipe</span><span class="chip-val">📦 Bundle</span></div>`
+    : `<div class="sheet-info-chip"><span class="chip-label">Durasi</span><span class="chip-val">⏱ ${item.dur}</span></div>
+       <div class="sheet-info-chip"><span class="chip-label">Format</span><span class="chip-val">${item.type==='video'?'🎬 MP4':'📸 JPG'}</span></div>`;
+
+  document.getElementById('sheet-price-val').textContent = fmt(item.price);
+  document.getElementById('sheet-buy-btn').href = botLink(item.startCode);
+  document.getElementById('sheet-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeSheet(e) {
+  if (e.target === document.getElementById('sheet-overlay')) {
+    document.getElementById('sheet-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+}
+
+renderGrup(grupData);
+renderSatuan(satuanData);
+</script>
+</body>
+</html>
