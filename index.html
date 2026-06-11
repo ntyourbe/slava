@@ -452,6 +452,93 @@ function closeSheet(e) {
 
 renderGrup(grupData);
 renderSatuan(satuanData);
+
+// ── PROTEKSI ANTI-HOLD / ANTI-COPY ────────────────────────────────────────
+
+// 1. Blokir context menu (klik kanan / hold menu di mobile)
+document.addEventListener('contextmenu', e => e.preventDefault());
+
+// 2. Blokir seleksi teks
+document.addEventListener('selectstart', e => e.preventDefault());
+
+// 3. Blokir drag (drag link / drag image)
+document.addEventListener('dragstart', e => e.preventDefault());
+
+// 4. Blokir touch hold yang memunculkan menu di iOS/Android
+document.addEventListener('touchstart', e => {
+  e._touchStartTime = Date.now();
+}, { passive: true });
+
+document.addEventListener('touchend', e => {
+  // biarkan tap biasa lewat
+}, { passive: true });
+
+// Blokir long-press via touchmove cancel jika diam terlalu lama
+let holdTimer = null;
+document.addEventListener('touchstart', e => {
+  holdTimer = setTimeout(() => {
+    // Batalkan event agar menu browser tidak muncul
+    e.preventDefault?.();
+  }, 400);
+}, { passive: false });
+
+document.addEventListener('touchend', () => clearTimeout(holdTimer));
+document.addEventListener('touchmove', () => clearTimeout(holdTimer));
+
+// 5. Semua <a> tag: cegah buka link dari hold/klik kanan
+document.querySelectorAll('a').forEach(a => {
+  a.addEventListener('contextmenu', e => e.preventDefault());
+  a.addEventListener('dragstart', e => e.preventDefault());
+});
+
+// 6. Semua <img>: blokir save image
+document.querySelectorAll('img').forEach(img => {
+  img.addEventListener('contextmenu', e => e.preventDefault());
+  img.addEventListener('dragstart', e => e.preventDefault());
+  img.setAttribute('draggable', 'false');
+  img.style.pointerEvents = 'none'; // gambar tidak bisa di-interact langsung
+});
+
+// 7. Observer: terapkan proteksi ke img yang dirender secara dinamis
+const imgObserver = new MutationObserver(mutations => {
+  mutations.forEach(m => {
+    m.addedNodes.forEach(node => {
+      if (node.nodeType !== 1) return;
+      const imgs = node.tagName === 'IMG' ? [node] : [...node.querySelectorAll('img')];
+      imgs.forEach(img => {
+        img.addEventListener('contextmenu', e => e.preventDefault());
+        img.addEventListener('dragstart', e => e.preventDefault());
+        img.setAttribute('draggable', 'false');
+        img.style.pointerEvents = 'none';
+      });
+      const links = node.tagName === 'A' ? [node] : [...node.querySelectorAll('a')];
+      links.forEach(a => {
+        a.addEventListener('contextmenu', e => e.preventDefault());
+        a.addEventListener('dragstart', e => e.preventDefault());
+      });
+    });
+  });
+});
+imgObserver.observe(document.body, { childList: true, subtree: true });
+
+// 8. CSS tambahan via JS: no-select + no-callout global
+const style = document.createElement('style');
+style.textContent = `
+  * {
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    user-select: none !important;
+    -webkit-touch-callout: none !important;
+  }
+  img {
+    pointer-events: none !important;
+    -webkit-user-drag: none !important;
+  }
+  a {
+    -webkit-touch-callout: none !important;
+  }
+`;
+document.head.appendChild(style);
 </script>
 </body>
 </html>
