@@ -324,25 +324,25 @@
 </div>
 
 <script>
-const BOT_USERNAME = 'YourBotUsername'; // <-- GANTI
+const BOT_USERNAME = 'pstorepaybot'; // <-- GANTI
 
 // ── GRUP DATA ──────────────────────────────────────────────────────────────
 // cover: path ke file lokal di repo, contoh 'img/g1.jpg'
 // Kalau belum punya gambar, isi cover: null → tampil emoji fallback
 const grupData = [
-  { id:'g1', name:'KOLPRI ALPHABET',  price:80000, items:1, tags:['hot'],           cover:'img/g1.jpg',  emoji:'🌸', desc:'Kumpulan kolpri yang di susun rapi sesuai Alphabet. Media udah ribuan',           startCode:'grup_g1' },
-  { id:'g2', name:'ALTER TALENT',     price:75000, items:1, tags:['hot'],             cover:'img/g2.jpg',  emoji:'🌸', desc:'Kumpulan talent tele, seleb, apk live, OF, trakteer yang di susun rapi per topik. Media udah ribuan update terus.',            startCode:'grup_g2' },
-  { id:'g3', name:'YNNA',  price:10000, items:1, tags:['new'],           cover:'img/g3.jpg',  emoji:'🌸', desc:'Grup vip isinya yang ngw ngw aja, koleksi ribuan video sxtp only. No foto.',           startCode:'grup_g3' },
-  { id:'g4', name:'SUPERLIVE',  price:50000, items:1, tags:['new'],           cover:'img/g4.jpg',  emoji:'🌸', desc:'DATABASE LIVE RECORD DARI 2019 - 2026',           startCode:'grup_g4' },
-  { id:'g5', name:'ALPHABET x ALTER TALENT',  price:150000, items:1, tags:['hot'],           cover:'img/g5.jpg',  emoji:'🌸', desc:'Beli ini dapat dua grub vip Kolpri Alphabet x Alter Talent, Total konten belasan ribu.',           startCode:'grup_g5' },
+  { id:'g1', name:'KOLPRI ALPHABET',  price:80000, items:1, tags:['hot'],           cover:'img/g1.jpg',  emoji:'🌸', desc:'Kumpulan kolpri yang di susun rapi sesuai Alphabet. Media udah ribuan',           startCode:'SVRFTV84MDAwMA' },
+  { id:'g2', name:'ALTER TALENT',     price:75000, items:1, tags:['hot'],             cover:'img/g2.jpg',  emoji:'🌸', desc:'Kumpulan talent tele, seleb, apk live, OF, trakteer yang di susun rapi per topik. Media udah ribuan update terus.',            startCode:'SVRFTV83NTAwMA' },
+  { id:'g3', name:'YNNA',  price:10000, items:1, tags:['new'],           cover:'img/g3.jpg',  emoji:'🌸', desc:'Grup vip isinya yang ngw ngw aja, koleksi ribuan video sxtp only. No foto.',           startCode:'SVRFTV8xMDAwMA' },
+  { id:'g4', name:'SUPERLIVE',  price:50000, items:1, tags:['new'],           cover:'img/g4.jpg',  emoji:'🌸', desc:'DATABASE LIVE RECORD DARI 2019 - 2026',           startCode:'SVRFTV81MDAwMA' },
+  { id:'g5', name:'ALPHABET x ALTER TALENT',  price:150000, items:1, tags:['hot'],           cover:'img/g5.jpg',  emoji:'🌸', desc:'Beli ini dapat dua grub vip Kolpri Alphabet x Alter Talent, Total konten belasan ribu.',           startCode:'SVRFTV8xNTAwMDA' },
 
 ];
 
 // ── SATUAN DATA ────────────────────────────────────────────────────────────
 // cover: path lokal, contoh 'img/s1.jpg'. Null = emoji fallback
 const satuanData = [
-  { id:'s1',  name:'BIYA BERNADETTE', price:25000,  type:'video', tags:['video','hot'],       cover:'img/s1.jpg',  emoji:'🎬', dur:'4:32',  startCode:'satuan_s1',  desc:'Video eksklusif di kamar hotel mewah. Kualitas HD jernih.' },
-  { id:'s2', name:'KAYESHA',    price:7000, type:'video', tags:['video','hot','new'], cover:'img/s2.jpg', emoji:'👑', dur:'15:00', startCode:'satuan_s2', desc:'Konten eksklusif terbatas. Video terbaik yang pernah ada.' },
+  { id:'s1',  name:'BIYA BERNADETTE', price:25000,  type:'video', tags:['hot'],       cover:'img/s1.jpg',  emoji:'🎬', dur:'370',  startCode:'SVRFTV8yNTAwMA',  desc:'Video eksklusif di kamar hotel mewah. Kualitas HD jernih.' },
+  { id:'s2', name:'KAYESHA',    price:7000, type:'video', tags:['hot','new'], cover:'img/s2.jpg', emoji:'🎬', dur:'143', startCode:'SVRFTV83MDAw', desc:'Konten eksklusif terbatas. Video terbaik yang pernah ada.' },
 ];
 
 // ── UTILS ──────────────────────────────────────────────────────────────────
@@ -435,7 +435,7 @@ function openSheet(type, id) {
   document.getElementById('sheet-desc').textContent = item.desc;
   document.getElementById('sheet-info').innerHTML = type==='grup'
     ? `<div class="sheet-info-chip"><span class="chip-label">Langganan</span><span class="chip-val">Permanen</span></div>
-       <div class="sheet-info-chip"><span class="chip-label">Tipe</span><span class="chip-val">📦 GRUP</span></div>`
+       <div class="sheet-info-chip"><span class="chip-label">Tipe</span><span class="chip-val">Grup</span></div>`
     : `<div class="sheet-info-chip"><span class="chip-label">Media</span><span class="chip-val"> ${item.dur}</span></div>
        <div class="sheet-info-chip"><span class="chip-label">Format</span><span class="chip-val">Satuan</span></div>`;
 
